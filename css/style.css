@@ -46,14 +46,13 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 50%;
+  width: 70%;
   list-style: none;
 }
 
 .nav-link {
   cursor: pointer;
   color: whitesmoke;
-  text-decoration: none;
   font-size: 1.125rem;
   transition: color 200ms ease-in-out;
 }
@@ -70,7 +69,7 @@ header {
 
 @media (max-width: 970px) {
   .nav-links {
-    width: 60%;
+    width: 80%;
   }
   .nav-link {
     font-size: 0.875rem;
@@ -174,10 +173,10 @@ main {
   color: white;
 }
 
-.white {
+/* .white {
   background: white;
   color: #2e2e2e;
-}
+} */
 
 .s-header {
   font-size: 3.75rem;
@@ -187,6 +186,12 @@ main {
   font-size: 1.25rem;
   width: 60%;
   text-align: center;
+}
+
+.section-active {
+  background-color: #f9f871;
+  color: #2e2e2e;
+  transition: all 300ms ease-in-out;
 }
 
 @media (max-width: 600px) {

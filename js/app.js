@@ -6,7 +6,6 @@ const lineMid = document.querySelector('.mid');
 const lineButtom = document.querySelector('.bottom');
 const hamMenu = document.querySelector('header');
 const navLinks = document.querySelector('.nav-links');
-const navLink = document.querySelectorAll('.nav-link');
 const sections = document.querySelectorAll('.section');
 
 //----------functions----------
@@ -23,6 +22,22 @@ const removeActiveClass = () => {
   });
 };
 
+const removeSectionActiveClass = () => {
+  sections.forEach(section => {
+    section.classList.remove('section-active');
+  });
+};
+
+//create nav links
+sections.forEach((section, i) => {
+  const link = document.createElement('li');
+  link.textContent = `Section ${i + 1}`;
+  link.classList.add('nav-link');
+  link.setAttribute('id', `section-${i + 1}`);
+  navLinks.appendChild(link);
+});
+const navLink = document.querySelectorAll('.nav-link');
+
 //toggle hamburger menu
 hamBtn.addEventListener('click', toggleHamburger);
 
@@ -32,8 +47,8 @@ navLinks.addEventListener('click', e => {
   const link = e.target;
 
   if (link.classList.contains('nav-link')) {
-    const href = link.getAttribute('href');
-    const section = document.querySelector(href);
+    const id = link.getAttribute('id');
+    const section = document.querySelector(`.${id}`);
     section.scrollIntoView({ behavior: 'smooth' });
     toggleHamburger();
   }
@@ -41,13 +56,15 @@ navLinks.addEventListener('click', e => {
 
 //Update Navigation while scrolling --
 sections.forEach((section, i) => {
-  section = document.querySelector(`#section-${i + 1}`);
+  section = document.querySelector(`.section-${i + 1}`);
 
   const addActive = entries => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         removeActiveClass();
+        removeSectionActiveClass();
         navLink[i].classList.add('active');
+        sections[i].classList.add('section-active');
       }
     });
   };
