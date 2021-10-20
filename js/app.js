@@ -89,10 +89,12 @@ window.addEventListener(
   'scroll',
   e => {
     header.classList.remove('hide-nav');
+    bttBtn.classList.add('btt-show');
     window.clearTimeout(userScrolling);
 
     userScrolling = setTimeout(() => {
       header.classList.add('hide-nav');
+      bttBtn.classList.remove('btt-show');
     }, 1000);
   },
   false
