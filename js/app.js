@@ -7,7 +7,8 @@ const lineButtom = document.querySelector('.bottom');
 const hamMenu = document.querySelector('header');
 const navLinks = document.querySelector('.nav-links');
 const sections = document.querySelectorAll('.section');
-
+const header = document.querySelector('header');
+const bttBtn = document.querySelector('.btt');
 //----------functions----------
 const toggleHamburger = () => {
   lineTop.classList.toggle('lt-open');
@@ -28,7 +29,7 @@ const removeSectionActiveClass = () => {
   });
 };
 
-//create nav links
+//create nav links ---
 sections.forEach((section, i) => {
   const link = document.createElement('li');
   link.textContent = `Section ${i + 1}`;
@@ -54,7 +55,12 @@ navLinks.addEventListener('click', e => {
   }
 });
 
-//Update Navigation while scrolling --
+//back to top functionality
+bttBtn.addEventListener('click', () => {
+  sections[0].scrollIntoView({ behavior: 'smooth' });
+});
+
+//Update Navigation and Sections while scrolling --
 sections.forEach((section, i) => {
   section = document.querySelector(`.section-${i + 1}`);
 
@@ -77,17 +83,35 @@ sections.forEach((section, i) => {
   sectionObserver.observe(section);
 });
 
-//TEST CODE
-/*
-sections.forEach((section, i) => {
-  section = document.querySelector(`#section-${i + 1}`);
-  const secCoords = section.getBoundingClientRect();
+//hide nav when user stop scrolling
+let userScrolling;
+window.addEventListener(
+  'scroll',
+  e => {
+    header.classList.remove('hide-nav');
+    window.clearTimeout(userScrolling);
 
-  window.addEventListener('scroll', () => {
-    if (window.scrollY >= secCoords.top) {
-      removeActiveClass();
-      navLink[i].classList.add('active');
+    userScrolling = setTimeout(() => {
+      header.classList.add('hide-nav');
+    }, 1000);
+  },
+  false
+);
+
+//show back to top btn
+const showBtt = entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) {
+      bttBtn.classList.add('btt-show');
+    } else {
+      bttBtn.classList.remove('btt-show');
     }
   });
+};
+
+const section1Observer = new IntersectionObserver(showBtt, {
+  root: null,
+  threshold: 0,
 });
-*/
+
+section1Observer.observe(sections[0]);
