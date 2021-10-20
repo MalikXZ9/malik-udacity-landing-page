@@ -29,6 +29,25 @@ const removeSectionActiveClass = () => {
   });
 };
 
+const showBttBtn = () => {
+  const bttFunction = entries => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) {
+        bttBtn.classList.add('btt-show');
+      } else {
+        bttBtn.classList.remove('btt-show');
+      }
+    });
+  };
+
+  const section1Observer = new IntersectionObserver(bttFunction, {
+    root: null,
+    threshold: 0.3,
+  });
+
+  section1Observer.observe(sections[0]);
+};
+
 //create nav links ---
 sections.forEach((section, i) => {
   const link = document.createElement('li');
@@ -89,31 +108,16 @@ window.addEventListener(
   'scroll',
   e => {
     header.classList.remove('hide-nav');
-    bttBtn.classList.add('btt-show');
+    showBttBtn();
     window.clearTimeout(userScrolling);
 
     userScrolling = setTimeout(() => {
       header.classList.add('hide-nav');
       bttBtn.classList.remove('btt-show');
-    }, 1000);
+    }, 1200);
   },
   false
 );
 
 //show back to top btn
-const showBtt = entries => {
-  entries.forEach(e => {
-    if (!e.isIntersecting) {
-      bttBtn.classList.add('btt-show');
-    } else {
-      bttBtn.classList.remove('btt-show');
-    }
-  });
-};
-
-const section1Observer = new IntersectionObserver(showBtt, {
-  root: null,
-  threshold: 0,
-});
-
-section1Observer.observe(sections[0]);
+showBttBtn();
