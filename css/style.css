@@ -242,3 +242,17 @@ main {
     text-align: center;
   }
 }
+
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background-color: white;
+  padding: 1rem;
+}
+
+.footer-text {
+  font-size: 1rem;
+  color: #2e2e2e;
+  text-align: center;
+}
